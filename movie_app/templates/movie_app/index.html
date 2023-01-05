@@ -1,0 +1,25 @@
+{% extends 'movie_app/additional/base.html' %}
+{% load static %}
+
+{% block login %}
+<div class="menu">
+    <ul class="menu_list">
+        <a href="{% url 'accounts:login' %}" class="login_btn">Login</a>
+    </ul>
+</div>
+{% endblock login %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<div class="jumbotron">
+    <h1>Unlimited movies, TV <br> shows, and more.</h1>
+    <h3>Watch anywhere. Cancel anytime.</h3>
+    <p>Ready to watch? Enter your email to create or restart your membership.</p>
+    <div class="input_container">
+        <input type="email" placeholder="Email address" class="email_inp">
+        <input type="submit" class="submit" value="Get started &#8250">
+    </div>
+</div>
+{% endblock content %}
+

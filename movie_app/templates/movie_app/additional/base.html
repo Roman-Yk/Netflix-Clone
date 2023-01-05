@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <title>Document</title>
+
+    <script text="text/javascript"> 
+        var user = '{{request.user}}'
+  
+        function getToken(name) {
+          let cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              const cookies = document.cookie.split(';');
+              for (let i = 0; i < cookies.length; i++) {
+                  const cookie = cookies[i].trim();
+                  // Does this cookie string begin with the name we want?
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+      const csrftoken = getToken('csrftoken');
+    </script>
+</head>
+<body>
+    
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav_div">
+                <div class="logo_search">
+                    <div class="logo">
+                        <a href="{% url 'index' %}"><img class='logo' src="{% static 'img/logo.png' %}" alt="Logo"></a>
+                    </div>
+                    <ul class="menu_list menu_list_own">
+                        <a href="{% url 'homepage' %}" class="menu_list_item">Home</a>
+                        <a href="{% url 'series_page' %}" class="menu_list_item">TV Series</a>
+                        <a href="{% url 'movies_page' 'all' %}" class="menu_list_item">Movies</a>
+                        <a href="{% url 'mylist' 'all' %}" class="menu_list_item">My List</a>
+                    </ul>
+                </div>
+                
+                {% block login %}
+                <div class="menu">
+                    <ul class="menu_list">
+                        <a href="{% url 'accounts:login' %}" class="login_btn">Login</a>
+                    </ul>
+                </div>
+                {% endblock login %}
+            </div>
+
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+    {% block content %}
+    {% endblock content %}
+
+</body>
+</html>

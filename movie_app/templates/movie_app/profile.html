@@ -1,0 +1,31 @@
+{% extends 'movie_app/additional/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+<div class="container">
+    <img src="" alt="Profile pic">
+    <form class="profile-form" action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="field-wrapper">
+            <label for="{{ field.id_for_label }}">{{ field.html_name|capfirst }}</label>
+            {{ field }}
+        </div>
+        {% endfor %}
+        <div class="fileWrapper">
+            <input class='fileInput' type="file" name="document">
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+{% endblock content %}
+
+
+

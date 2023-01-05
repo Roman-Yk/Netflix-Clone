@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav_div">
+                <div class="logo">
+                    <a href="{% url 'index' %}"><img class='logo' src="{% static 'img/logo.png' %}" alt="Logo"></a>
+                </div>
+        
+            </div>
+
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <div class="form_container">
+        <h1 class="form_title">Sign In</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <input class="data floatfield" type="email" id="email" placeholder="Email">
+            <input class="data floatfield" type="password" id="password" placeholder="Password">
+            <input type="submit" class="submit" value="Sign in">
+            <div class="keep_sign">
+                <div class="check">
+                    <label for="check" class="remember_check">
+                        <input type="checkbox" id="check" class="rememb_inp">
+                        <span class="lab_text">Remember me</span>
+                    </label>
+                </div>
+                <a href="" class="help_link">Need help?</a>
+            </div>
+        </form>
+
+    </div>
+
+    
+</body>
+</html>

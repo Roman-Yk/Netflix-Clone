@@ -1,0 +1,159 @@
+{% extends "movie_app/additional/base.html" %}
+{% load static %}
+
+{% block searchbar %}{% endblock searchbar %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/homepage/homepage.css' %}">
+<script src="{% static 'js/homepage/homepage.js' %}"></script>
+<!-- Подключаем слайдер swiper -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
+
+<div class="container_h">
+  <div class="bg">
+    
+  </div>
+    <div class="preview_movie">
+        <h1 class="movie_title">No Exit</h1>
+        <p class="movie_description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse possimus atque consectetur iusto alias blanditiis assumenda accusantium molestias nulla ipsam mollitia error aspernatur, suscipit veritatis quas! Voluptas exercitationem veritatis minima.</p>
+        <div class="buttons">
+            <button class="play_btn">&#9658 Play</button>
+            <button class="more_info_btn">&#9432 More info</button>
+        </div>
+    </div>
+    <div class="movies">
+      <div class="Trending">
+        <h1 class="white">Trending now</h1>
+        <div class="swiper image-slider">
+          <div class="swiper-wrapper swiper_cont">
+            {% for movie in movies %}
+              <a href="{% url 'filmpage' movie.id %}" class="swiper-slide image-silder__img" filter>
+                <img src="{{movie.homepage_slider_image.url}}" alt="">
+              </a>
+            {% endfor %}
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+    </div>
+
+
+    <div class="top_rated">
+      <h1 class="white">Top rated</h1>
+      <div class="swiper image-slider">
+        <div class="swiper-wrapper swiper_cont">
+          {% for movie in movies %}
+            <a href="{% url 'filmpage' movie.id %}" class="swiper-slide image-silder__img" filter>
+              <img src="{{movie.homepage_slider_image.url}}" alt="">
+            </a>
+          {% endfor %}
+        </div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      </div>
+  </div>
+
+  <div class="action">
+    <h1 class="white">Action</h1>
+    <div class="swiper image-slider">
+      <div class="swiper-wrapper swiper_cont">
+        {% for movie in movies %}
+          <a href="{% url 'filmpage' movie.id %}" class="swiper-slide image-silder__img" filter>
+            <img src="{{movie.homepage_slider_image.url}}" alt="">
+          </a>
+        {% endfor %}
+      </div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </div>
+
+  <div class="comedies">
+    <h1 class="white">Comedies</h1>
+    <div class="swiper image-slider">
+      <div class="swiper-wrapper swiper_cont">
+        {% for movie in movies %}
+          <a href="{% url 'filmpage' movie.id %}" class="swiper-slide image-silder__img" filter>
+            <img src="{{movie.homepage_slider_image.url}}" alt="">
+          </a>
+        {% endfor %}
+      </div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+  </div>
+
+  <div class="thrillers">
+    <h1 class="white">Thrillers</h1>
+    <div class="swiper image-slider">
+      <div class="swiper-wrapper swiper_cont">
+        {% for movie in movies %}
+          <a href="{% url 'filmpage' movie.id %}" class="swiper-slide image-silder__img" filter>
+            <img src="{{movie.homepage_slider_image.url}}" alt="">
+          </a>
+        {% endfor %}
+        </div>
+        <div class="swiper-button-prev btn"></div>
+        <div class="swiper-button-next btn"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+  //Slider
+  new Swiper('.image-slider',{
+
+    navigation:{
+      nextEl:'.swiper-button-next',
+      prevEl:'.swiper-button-prev',
+    },
+    spaceBetween: 0,
+    loop:true,
+    freeMode:true,
+
+    autoplay:{
+      delay:3000,
+      stopOnLastSlide:false,
+      disableOnIteraction: false,
+    },
+
+    speed:800,
+
+    breakpoints: {
+      320:{
+        slidesPerView:1,
+      },
+      480:{
+        slidesPerView:2,
+      },
+      992:{
+        slidesPerView:5,
+      }
+    }
+
+  });
+</script>
+{% endblock content%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

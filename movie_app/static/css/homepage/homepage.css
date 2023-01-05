@@ -1,0 +1,106 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    background-color: black;
+}
+.bg{
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    z-index: -10;
+    background: url('/static/img/movies_img/noexit.jpg') no-repeat ;
+    background-size: cover;    
+}
+
+.navbar{
+    position: fixed;
+}
+
+.preview_movie{
+    padding-top: 400px;
+    padding-bottom: 150px;
+    padding-left: 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+   
+}
+
+.movie_title{
+    color: white;
+    font-size: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.movie_description{
+    font-size: 30px;
+    width: 600px;
+    color: white;
+}
+
+.play_btn{
+    padding: 10px 30px;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 6px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    color: black;
+    cursor: pointer;
+}
+
+.more_info_btn{
+    padding: 10px 30px;
+    background-color: rgba(139, 139, 139, 0.616);
+    border: none;
+    border-radius: 6px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+/* --------------------------SLIDER------------------------------ */
+
+.movies{
+    padding-left: 5%;
+    padding-right: 5%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+
+.white{
+    color: white;
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.image-silder__img{
+    text-align: center;
+}
+.image-silder__img img{
+    height: 180px;
+    width: auto;
+}
+
+.swiper-button-next{
+    opacity: 0;
+}
+
+.swiper-button-next:hover{
+    opacity: 1;
+}
+
+.swiper-button-prev{
+    opacity: 0;
+}
+
+.swiper-button-prev:hover{
+    opacity: 1;
+}

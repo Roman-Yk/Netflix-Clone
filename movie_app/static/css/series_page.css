@@ -1,0 +1,41 @@
+body{
+    background-color: black;
+}
+a{text-decoration: none;}
+
+.navbar{
+    position: relative;
+}
+
+.container_series{
+    display: grid;
+    grid-template-columns: 20%  20%  20%  20%;
+    row-gap: 20px;
+    column-gap: 20px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5%;
+}
+
+.film{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    width: 100%;
+    height: auto;
+    justify-content: center;
+    text-align: center;
+    transition: all ease-in 0.3s;
+}
+.film:hover{
+    scale: 1.1;
+}
+
+
+.movie_desc{
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 10px;
+    font-size: 16px;
+}
