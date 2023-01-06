@@ -48,6 +48,9 @@ class Customer(models.Model):
     name = models.CharField(max_length=255, null = True)
     email = models.EmailField(unique=True, null = True)
     password = models.CharField(max_length=255, null = True)
+    
+    def __str__(self) -> str:
+        return self.name
 
 class UserList(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, null=True, blank=True)

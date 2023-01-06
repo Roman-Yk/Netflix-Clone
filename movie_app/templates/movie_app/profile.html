@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 
 <div class="container">
-    <img src="" alt="Profile pic">
+    <img src="{{request.user.customer.profile_pic.url}}" alt="Profile pic">
     <form class="profile-form" action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% for field in form %}

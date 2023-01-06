@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav_div">
+                <div class="logo">
+                    <a href="{% url 'index' %}"><img class='logo' src="{% static 'img/logo.png' %}" alt="Logo"></a>
+                </div>
+        
+            </div>
+
+        </div>
+    </nav>
+    <!-- Navbar End -->
+    
+    <div class="form_container">
+        <h1 class="form_title">Register</h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            {% for non_field_error in form.non_field.errors %}
+                <p class="warning">{{ non_field_error }}</p>
+            {% endfor %}
+            {% for field in form %}
+            <div class="fields">
+                
+                {{ field }}
+
+                {% if field.help_text %}
+                    <p class="help">{{ field.help_text }}</p>
+                {% endif %}
+
+                {% for error in field.errors %}
+                    <p class="warning">{{ error }}</p>
+                {% endfor %}
+            </div>
+            
+            {% endfor %}
+            <input type="submit" class="submit" value="Sign in">
+        </form>
+    </div>
+
+    
+</body>
+</html>
