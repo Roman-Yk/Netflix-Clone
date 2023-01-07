@@ -44,11 +44,12 @@ class Movie(models.Model):
     
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_pic = models.ImageField(upload_to='profile_pictures', null = True)
+    profile_pic = models.ImageField(default = 'profile_pictures/placeholder.png',upload_to='profile_pictures', null = True)
     name = models.CharField(max_length=255, null = True)
     email = models.EmailField(unique=True, null = True)
     password = models.CharField(max_length=255, null = True)
     
+        
     def __str__(self) -> str:
         return self.name
 

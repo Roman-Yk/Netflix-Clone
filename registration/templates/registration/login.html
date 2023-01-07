@@ -28,13 +28,13 @@
         <h1 class="form_title">Sign In</h1>
         <form action="" method="post">
             {% csrf_token %}
-            <input class="data floatfield" type="email" id="email" placeholder="Email">
-            <input class="data floatfield" type="password" id="password" placeholder="Password">
+            <input class="data floatfield" type="text" id="email" placeholder="Email" name="email">
+            <input class="data floatfield" type="password" id="password" placeholder="Password" name="password">
             <input type="submit" class="submit" value="Sign in">
             <div class="keep_sign">
                 <div class="check">
                     <label for="check" class="remember_check">
-                        <input type="checkbox" id="check" class="rememb_inp">
+                        <input type="checkbox" id="check" class="rememb_inp" name="remember">
                         <span class="lab_text">Remember me</span>
                     </label>
                 </div>

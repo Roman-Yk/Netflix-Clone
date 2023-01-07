@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from .models import *
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 from .forms import *
+
 
 import json
 # Create your views here.
@@ -13,18 +15,22 @@ def index(request):
     else:
         return redirect("homepage")
 
-
+@login_required(login_url='login')
 def homepage(request):
     movies = Movie.objects.all()
     context = {'movies': movies}
     return render(request, 'movie_app/homepage.html', context)
  
+ 
+@login_required(login_url='login')
 def series_page(request):
     #filter by series
     series = Movie.objects.filter(movie_type = 'series')
     context = {'series': series, 'genres': sorted(GENRES)}
     return render(request, 'movie_app/series.html', context)
  
+ 
+@login_required(login_url='login')
 def movies_page(request, genre='all'):
     #check which genre was choosen
     if genre == 'all':
@@ -35,6 +41,8 @@ def movies_page(request, genre='all'):
     context = {'movies': movies, 'genres': sorted(GENRES)}
     return render(request, 'movie_app/movies.html', context)
  
+ 
+@login_required(login_url='login')
 def single_filmpage(request, filmId):
     addible = True
     customer = request.user.customer
@@ -48,6 +56,7 @@ def single_filmpage(request, filmId):
     return render(request, 'movie_app/film_page.html', context)
 
 
+@login_required(login_url='login')
 def genred_series(request, genre):
     #check which genre was choosen
     if genre == 'all':
@@ -59,6 +68,7 @@ def genred_series(request, genre):
     return render(request, 'movie_app/series.html', context)
  
  
+@login_required(login_url='login')
 #User movie list 
 def user_movie_list(request, genre):
     customer = request.user.customer
@@ -72,6 +82,7 @@ def user_movie_list(request, genre):
     return render(request, 'movie_app/my_list.html', context)
 
 
+@login_required(login_url='login')
 def add_to_userlist(request):
     # get user
     customer = request.user.customer
@@ -96,12 +107,18 @@ def add_to_userlist(request):
 
 
 
-
+@login_required(login_url='login')
 def profile(request):
     customer = request.user.customer
     if request.method == "POST":
         form = CustomerForm(request.POST, instance=customer)
+        if form.is_valid():
+            form.save()
+            if 'document' in request.FILES:
+                customer.profile_pic = request.FILES['document']
+            customer.name = form.cleaned_data.get('name')
+            customer.save()
     else:
-        form = CustomerForm()
+        form = CustomerForm(instance=customer)
     context = {'form':form}
     return render(request, 'movie_app/profile.html', context)

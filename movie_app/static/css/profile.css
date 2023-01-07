@@ -1,0 +1,74 @@
+body{
+    background-color: black;
+}
+
+label{
+    color: white;
+    margin-left: 5px;
+    
+}
+
+.usernameinput{
+    width: 100%;
+    height: 40px;
+    border-radius: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 16px;
+    background-color: black;
+    color: white;
+    margin-top: 10px;
+}
+
+::placeholder{
+    color: white;
+}
+
+.fileInput{
+    color: white;
+}
+
+.profile_container{
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
+}
+
+.profile-form{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    align-items: center;
+}
+
+.avatar{
+    width: 100px;
+    height: 100px;
+    margin-bottom: 30px;
+}
+
+.upload_photo_label{
+    cursor: pointer;
+}
+
+#upload_photo{
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+.submit{
+    margin-top: 20px;
+    width: 60%;
+    height: 50px;
+    align-self: center;
+    border-radius: 5px;
+    color: white;
+    font-size: 20px;
+    background-color: red;
+    cursor: pointer;
+}

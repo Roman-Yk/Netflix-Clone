@@ -4,10 +4,11 @@ from .models import *
 class CustomerForm(forms.ModelForm):
     
     class Meta:
-        model = Customer
-        fields = ['name']
+        model=Customer
+        fields = ['name', ]
         widgets = {
-            'name': forms.TextInput(attrs={'class':'name_input'}),
+            'name': forms.TextInput(attrs={'class': 'usernameinput', 'placeholder': 'Username'}),
+            
         }
 
 
