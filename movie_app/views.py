@@ -10,19 +10,17 @@ import json
 # Create your views here.
 
 def index(request):
-    if request.user.is_authenticated:
-        return render(request, 'movie_app/index.html')
-    else:
-        return redirect("homepage")
+    return render(request, 'movie_app/index.html')
+    
 
-@login_required(login_url='login')
+@login_required(login_url='accounts:login')
 def homepage(request):
     movies = Movie.objects.all()
     context = {'movies': movies}
     return render(request, 'movie_app/homepage.html', context)
  
  
-@login_required(login_url='login')
+@login_required(login_url='accounts:login')
 def series_page(request):
     #filter by series
     series = Movie.objects.filter(movie_type = 'series')
@@ -30,7 +28,7 @@ def series_page(request):
     return render(request, 'movie_app/series.html', context)
  
  
-@login_required(login_url='login')
+@login_required(login_url='accounts:login')
 def movies_page(request, genre='all'):
     #check which genre was choosen
     if genre == 'all':
@@ -42,7 +40,7 @@ def movies_page(request, genre='all'):
     return render(request, 'movie_app/movies.html', context)
  
  
-@login_required(login_url='login')
+@login_required(login_url='accounts:login')
 def single_filmpage(request, filmId):
     addible = True
     customer = request.user.customer
@@ -56,7 +54,7 @@ def single_filmpage(request, filmId):
     return render(request, 'movie_app/film_page.html', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='accounts:login')
 def genred_series(request, genre):
     #check which genre was choosen
     if genre == 'all':
@@ -68,7 +66,7 @@ def genred_series(request, genre):
     return render(request, 'movie_app/series.html', context)
  
  
-@login_required(login_url='login')
+@login_required(login_url='accounts:login')
 #User movie list 
 def user_movie_list(request, genre):
     customer = request.user.customer
@@ -82,7 +80,7 @@ def user_movie_list(request, genre):
     return render(request, 'movie_app/my_list.html', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='accounts:login')
 def add_to_userlist(request):
     # get user
     customer = request.user.customer
@@ -107,7 +105,7 @@ def add_to_userlist(request):
 
 
 
-@login_required(login_url='login')
+@login_required(login_url='accounts:login')
 def profile(request):
     customer = request.user.customer
     if request.method == "POST":

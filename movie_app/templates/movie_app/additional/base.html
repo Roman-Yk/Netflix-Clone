@@ -48,11 +48,25 @@
                 </div>
                 
                 {% block login %}
+                {% if request.user.is_authenticated %}
+                <div class="menu">
+                    <ul class="menu_list">
+                        <a href="{% url 'profile' %}" class="profile_link"><img src="{{request.user.customer.profile_pic.url}}" alt=""></a>
+                    </ul>
+                </div>
+                
+                {% else %}
                 <div class="menu">
                     <ul class="menu_list">
                         <a href="{% url 'accounts:login' %}" class="login_btn">Login</a>
                     </ul>
                 </div>
+                <div class="menu">
+                    <ul class="menu_list">
+                        <a href="{% url 'accounts:register' %}" class="login_btn">Register</a>
+                    </ul>
+                </div>
+                {% endif %}
                 {% endblock login %}
             </div>
 

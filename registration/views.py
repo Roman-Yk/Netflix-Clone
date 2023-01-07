@@ -35,7 +35,7 @@ def register(request):
     return render(request, "registration/registration.html", context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='accounts:login')
 def logout_user(request):
     logout(request)
     return redirect('homepage')
