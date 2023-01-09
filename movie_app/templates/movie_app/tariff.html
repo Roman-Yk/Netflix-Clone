@@ -1,0 +1,53 @@
+{% extends 'movie_app/additional/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/tariff_page.css' %}">
+
+<div class="tariff_container">
+    <div class="plan_cont">
+        {% for tariff in tariffs %}
+        <div class="tariff_card">
+            <h1 class="tarif_name">{{tariff.0|title }}</h1>
+            {% if tariff.0 == "default" %}
+            <ul>
+                <li>Punct1</li>
+                <li>Punct2</li>
+                <li>Punct3</li>
+            </ul>
+            {% endif %}
+            {% if tariff.0 == "plus" %}
+            <ul>
+                <li>Punct1</li>
+                <li>Punct2</li>
+                <li>Punct3</li>
+                <li>Punct4</li>
+                <li>Punct5</li>
+            </ul>
+            {% endif %}
+            {% if tariff.0 == "premium" %}
+            <ul>
+                <li>Punct1</li>
+                <li>Punct2</li>
+                <li>Punct3</li>
+                <li>Punct4</li>
+                <li>Punct5</li>
+                <li>Punct6</li>
+                <li>Punct7</li>
+                <li>Punct8</li>
+            </ul>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+    <input type="submit" class="choose" value="Choose">
+</div>
+
+
+<script text="text/javascript">
+    let choices = 1
+</script>
+{% endblock content %}
+
+

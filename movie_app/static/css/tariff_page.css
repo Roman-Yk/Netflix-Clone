@@ -1,0 +1,68 @@
+body{
+    background-color: black;
+}
+.tariff_container{
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+.plan_cont{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.tariff_card{
+    height: 500px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+    align-items: center;
+    background-color: rgb(53, 53, 53);
+    cursor: pointer;
+    transition: all ease-in-out 0.3s;
+}
+
+.tariff_card:hover{
+    transform: scale(1.1);
+}
+
+.tarif_name{
+    color: white;
+}
+
+ul{
+    color: white;
+    font-size: 16px;
+    margin-top: 30px;
+}
+
+li::marker{
+    justify-content: center;
+    margin-right: 5px;
+    color: red;
+    font-weight: 700;
+    font-size: 30px;
+    content: "›";
+}
+
+/* make using class */
+li{
+    margin-bottom: 15px;
+    padding-left: 10px;
+}
+
+.choose{
+    margin-top: 40px;
+    width: 200px;
+    height: 50px;
+    align-self: center;
+    border-radius: 5px;
+    color: white;
+    font-size: 20px;
+    background-color: red;
+    cursor: pointer;
+}

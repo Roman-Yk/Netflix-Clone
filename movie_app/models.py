@@ -20,6 +20,11 @@ GENRES = (
     ('historical', 'historical'),
 )
 
+TARIFF = (
+    ('default','movies'),
+    ('plus','plus'),
+    ('premium', 'premium'),
+)
 
 class Movie(models.Model):
     title = models.CharField(max_length=200,null=True)
@@ -48,7 +53,7 @@ class Customer(models.Model):
     name = models.CharField(max_length=255, null = True)
     email = models.EmailField(unique=True, null = True)
     password = models.CharField(max_length=255, null = True)
-    
+    tariff = models.CharField(choices=TARIFF, null=True, max_length=15)
         
     def __str__(self) -> str:
         return self.name

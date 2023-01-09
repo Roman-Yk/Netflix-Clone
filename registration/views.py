@@ -23,7 +23,9 @@ def register(request):
     if request.method == "POST":
         form = CreateUserForm(request.POST)
         if form.is_valid():
+            #save form
             user = form.save()
+            #create customer
             customer = Customer.objects.create(name=form.cleaned_data.get('username'), email=form.cleaned_data.get('email'), password =form.cleaned_data.get('password1'), user=user)
             auth_user = authenticate(request, username = form.cleaned_data.get('username'), password = form.cleaned_data.get('password1'))
             login(request, auth_user)

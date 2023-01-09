@@ -120,3 +120,10 @@ def profile(request):
         form = CustomerForm(instance=customer)
     context = {'form':form}
     return render(request, 'movie_app/profile.html', context)
+
+
+@login_required(login_url='accounts:login')
+def tariff(request):
+    customer = request.user.customer
+    context = {'tariffs':TARIFF}
+    return render(request, 'movie_app/tariff.html', context)
