@@ -49,8 +49,13 @@
                 
                 {% block login %}
                 {% if request.user.is_authenticated %}
+
                 <div class="menu">
-                    <ul class="menu_list">
+                    <ul class="menu_list search_profile">
+                        <div class="search_bar">
+                            <input class="search_bar_input" placeholder="Search" type="text">
+                            <img src="{% static 'img/icons/search_icon.png' %}" class="search_btn">
+                        </div>
                         <a href="{% url 'profile' %}" class="profile_link"><img src="{{request.user.customer.profile_pic.url}}" alt=""></a>
                     </ul>
                 </div>

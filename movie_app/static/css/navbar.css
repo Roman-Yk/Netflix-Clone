@@ -90,9 +90,13 @@ ul{
 
 .menu_list{
     align-items: center;
+    display: flex;
+    justify-content: space-between;
 }
 
-
+.search_profile{
+    gap: 100px;
+}
 
 
 
