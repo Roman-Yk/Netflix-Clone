@@ -34,23 +34,23 @@ body{
     color: white;
 }
 
-ul{
+.card-list{
     color: white;
     font-size: 16px;
     margin-top: 30px;
 }
 
-li::marker{
+.card-list-punct::marker{
     justify-content: center;
     margin-right: 5px;
-    color: red;
+    color: white;
     font-weight: 700;
     font-size: 30px;
     content: "›";
 }
 
 /* make using class */
-li{
+.card-list-punct{
     margin-bottom: 15px;
     padding-left: 10px;
 }
@@ -65,4 +65,13 @@ li{
     font-size: 20px;
     background-color: red;
     cursor: pointer;
+}
+
+.card-input-element{
+    display: none;
+}
+
+.card-input-element:checked + .card-input {
+    background-color: red;
+    transform: scale(1.1);
 }

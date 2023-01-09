@@ -8,37 +8,28 @@
 <div class="tariff_container">
     <div class="plan_cont">
         {% for tariff in tariffs %}
-        <div class="tariff_card">
-            <h1 class="tarif_name">{{tariff.0|title }}</h1>
-            {% if tariff.0 == "default" %}
-            <ul>
-                <li>Punct1</li>
-                <li>Punct2</li>
-                <li>Punct3</li>
-            </ul>
-            {% endif %}
-            {% if tariff.0 == "plus" %}
-            <ul>
-                <li>Punct1</li>
-                <li>Punct2</li>
-                <li>Punct3</li>
-                <li>Punct4</li>
-                <li>Punct5</li>
-            </ul>
-            {% endif %}
-            {% if tariff.0 == "premium" %}
-            <ul>
-                <li>Punct1</li>
-                <li>Punct2</li>
-                <li>Punct3</li>
-                <li>Punct4</li>
-                <li>Punct5</li>
-                <li>Punct6</li>
-                <li>Punct7</li>
-                <li>Punct8</li>
-            </ul>
-            {% endif %}
-        </div>
+        <label>
+            <input type="radio" class="card-input-element" name="tariff">
+            <div class="tariff_card card-input">
+                <h1 class="tarif_name">{{tariff.0|title }}</h1>
+                {% if tariff.0 == "default" %}
+                <ul class="card-list">
+                    <li class="card-list-punct">Access to homepage and movies</li>
+                </ul>
+                {% endif %}
+                {% if tariff.0 == "plus" %}
+                <ul class="card-list">
+                    <li class="card-list-punct">Access to homepage and series</li>
+                </ul>
+                {% endif %}
+                {% if tariff.0 == "premium" %}
+                <ul class="card-list">
+                    <li class="card-list-punct">Access to all</li>
+                </ul>
+                {% endif %}
+            </div>
+        </label>
+        
         {% endfor %}
     </div>
     <input type="submit" class="choose" value="Choose">
@@ -46,7 +37,14 @@
 
 
 <script text="text/javascript">
-    let choices = 1
+    let choices = document.getElementsByClassName("tariff_card")
+
+    for(let choice = 0; choice < choices.length; choice++){
+        choices[choice].addEventListener("click", () => {
+            this.style.backgroundColor = 'red'
+        })
+    }
+
 </script>
 {% endblock content %}
 
