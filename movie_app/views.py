@@ -4,7 +4,7 @@ from .models import *
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from .forms import *
-
+import random
 
 import json
 # Create your views here.
@@ -16,7 +16,8 @@ def index(request):
 @login_required(login_url='accounts:login')
 def homepage(request):
     movies = Movie.objects.all()
-    context = {'movies': movies}
+    title_movie = random.choice(movies)
+    context = {'movies': movies, 'title_movie': title_movie}
     return render(request, 'movie_app/homepage.html', context)
  
  

@@ -5,12 +5,16 @@
 body{
     background-color: black;
 }
+
+a{
+    text-decoration: none;
+}
 .bg{
     position: absolute;
     height: 100vh;
     width: 100%;
     z-index: -10;
-    background: url('/static/img/movies_img/noexit.jpg') no-repeat ;
+    background: no-repeat;
     background-size: cover;    
 }
 

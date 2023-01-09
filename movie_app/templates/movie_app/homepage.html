@@ -16,10 +16,10 @@
     
   </div>
     <div class="preview_movie">
-        <h1 class="movie_title">No Exit</h1>
-        <p class="movie_description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse possimus atque consectetur iusto alias blanditiis assumenda accusantium molestias nulla ipsam mollitia error aspernatur, suscipit veritatis quas! Voluptas exercitationem veritatis minima.</p>
+        <h1 class="movie_title">{{title_movie.title}}</h1>
+        <p class="movie_description">{{title_movie.description}}</p>
         <div class="buttons">
-            <button class="play_btn">&#9658 Play</button>
+            <a class="play_btn" href="{% url 'filmpage' title_movie.id %}">&#9658 Play</a>
             <button class="more_info_btn">&#9432 More info</button>
         </div>
     </div>
@@ -103,8 +103,14 @@
 </div>
 
 
-<script>
+<script text='text/javascript'>
   //Slider
+  let bg = document.querySelector('.bg')
+  window.onload = function(){
+    bg.style.background = "url('{{title_movie.image.url}}') no-repeat"
+    bg.style.backgroundSize = 'cover'
+  }
+
   new Swiper('.image-slider',{
 
     navigation:{
