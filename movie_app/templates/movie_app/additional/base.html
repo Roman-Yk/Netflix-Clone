@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/additional/search.css' %}">
     <title>Document</title>
 
     <script text="text/javascript"> 
@@ -27,6 +28,11 @@
           return cookieValue;
       }
       const csrftoken = getToken('csrftoken');
+
+
+      // Search section
+      
+
     </script>
 </head>
 <body>
@@ -52,10 +58,17 @@
 
                 <div class="menu">
                     <ul class="menu_list search_profile">
-                        <div class="search_bar">
-                            <input class="search_bar_input" placeholder="Search" type="text">
-                            <img src="{% static 'img/icons/search_icon.png' %}" class="search_btn">
-                        </div>
+                        <div class="search_bar_wrapper">
+                            <div class="search_bar">
+                                <input id='search' class="search_bar_input" placeholder="Search" type="text">
+                                <img src="{% static 'img/icons/search_icon.png' %}" class="search_btn">
+                            </div>
+                            <ul id="search_ul" class="search_results">
+                                {% for movie in movies%}
+                                    <li class="results"><a href="{% url 'filmpage' movie.id %}">{{ movie.title }}</a></li>
+                                {% endfor %}
+                            </ul> 
+                        </div> 
                         <a href="{% url 'profile' %}" class="profile_link"><img src="{{request.user.customer.profile_pic.url}}" alt=""></a>
                     </ul>
                 </div>
@@ -82,5 +95,61 @@
     {% block content %}
     {% endblock content %}
 
-</body>
+    <script text="text/javascript">
+        // Open close searchbar
+        let searchBtn = document.querySelector('.search_btn')
+        let searchBar = document.querySelector('.search_bar_input')
+        let open = true
+
+        let search = document.getElementById('search');
+        let ul = document.getElementById("search_ul");
+        let li = ul.getElementsByTagName('li');
+
+        searchBtn.addEventListener('click', () =>{
+            if(open){
+                searchBar.style.transform= 'scaleX(1)'
+                open = false
+                for(let i = 0; i < li.length; i++){
+                    li[i].style.display = "block";
+                }
+            }
+            else{
+                searchBar.style.transform= 'scaleX(0)'
+                open = true
+                for(let i = 0; i < li.length; i++){
+                    li[i].style.display = "none";
+                }
+            }
+            
+        })
+
+        //Seraching
+
+
+
+        for (i = 0; i < li.length; i++) {
+            li[i].style.display = "none";    
+        }
+        
+        search.addEventListener('change', () => {
+            let filter = search.value.toUpperCase();
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().includes(filter)) {
+                    li[i].style.display = "block";
+                } 
+                else if(filter == ''){
+                    li[i].style.display = "none";
+                }
+                else {
+                  li[i].style.display = "none";
+                }
+            }
+        })
+
+
+    </script>
+    <script src="{% static 'js/searchbar.js' %}"></script>
+</body> 
 </html>

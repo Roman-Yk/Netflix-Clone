@@ -25,7 +25,7 @@ def homepage(request):
 def series_page(request):
     #filter by series
     series = Movie.objects.filter(movie_type = 'series')
-    context = {'series': series, 'genres': sorted(GENRES)}
+    context = {'movies': series, 'genres': sorted(GENRES)}
     return render(request, 'movie_app/series.html', context)
  
  
