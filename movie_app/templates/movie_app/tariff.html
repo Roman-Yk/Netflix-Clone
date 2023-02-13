@@ -6,12 +6,13 @@
 <link rel="stylesheet" href="{% static 'css/tariff_page.css' %}">
 
 <div class="tariff_container">
-    <div class="plan_cont">
-        {% for tariff in tariffs %}
-        <label>
-            <input type="radio" class="card-input-element" name="tariff">
+    <form class="plan_cont" method='post'>
+        {% csrf_token %}
+        {% for tariff in form.tariff %}
+        <label class="lab">
+            
             <div class="tariff_card card-input">
-                <h1 class="tarif_name">{{tariff.0|title }}</h1>
+                <h1 class="tarif_name">{{ tariff }}</h1>
                 {% if tariff.0 == "default" %}
                 <ul class="card-list">
                     <li class="card-list-punct">Access to homepage and movies</li>
@@ -31,11 +32,30 @@
         </label>
         
         {% endfor %}
-    </div>
-    <input type="submit" class="choose" value="Choose">
+        <input type="submit" class="choose" value="Choose">
+    </form>
+    
 </div>
 
+<script text="text-javascript">
+    let choices = document.getElementsByClassName('tariff')
+    let cards = document.getElementsByClassName('tariff_card ')
+    console.log(cards)
+    for(let i = 0; i < choices.length; i++){
+        choices[i].addEventListener('change', () => {
+            for(let j = 0; j < choices.length; j++){
+                cards[i].classList.remove("checked")
+                if (choices[i].checked){
+                    cards[i].classList.add("checked")
+                    console.log('click')
+                    console.log(cards)
+                }
+            }
+        })
 
+    }
+    
+</script>
 
 {% endblock content %}
 

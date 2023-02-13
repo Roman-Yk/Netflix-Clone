@@ -108,14 +108,20 @@ def add_to_userlist(request):
 
 @login_required(login_url='accounts:login')
 def profile(request):
+    # get customer
     customer = request.user.customer
     if request.method == "POST":
+        # get sended data
         form = CustomerForm(request.POST, instance=customer)
         if form.is_valid():
             form.save()
+            # check if aany files were sended
+            # if were, then change profile picture
             if 'document' in request.FILES:
                 customer.profile_pic = request.FILES['document']
+            # update customer name
             customer.name = form.cleaned_data.get('name')
+            # save changes
             customer.save()
     else:
         form = CustomerForm(instance=customer)
@@ -123,8 +129,22 @@ def profile(request):
     return render(request, 'movie_app/profile.html', context)
 
 
+
 @login_required(login_url='accounts:login')
 def tariff(request):
-    customer = request.user.customer
-    context = {'tariffs':TARIFF}
+    # check request method
+    if request.method == "POST":
+        form = TariffForm(request.POST)
+        # check if form is valid
+        if form.is_valid():
+            # get customer
+            customer = request.user.customer
+            # change customer tariff
+            customer.tariff = form.cleaned_data['tariff']
+            # save changes
+            customer.save()
+    else:
+        form = TariffForm()
+        
+    context = {'tariffs':TARIFF, 'form': form}
     return render(request, 'movie_app/tariff.html', context)

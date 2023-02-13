@@ -10,6 +10,10 @@ class CustomerForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'usernameinput', 'placeholder': 'Username'}),
             
         }
+        
+class TariffForm(forms.Form):
+    tariff = forms.CharField(widget=forms.RadioSelect(choices=TARIFF, attrs={'class': 'tariff'}))
+    
 
 
 
