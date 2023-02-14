@@ -72,3 +72,12 @@ label{
     background-color: red;
     cursor: pointer;
 }
+
+
+.tarif_link{
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 20px;
+}

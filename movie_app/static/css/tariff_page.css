@@ -66,21 +66,25 @@ body{
     background-color: red;
     cursor: pointer;
 }
+
 .tariff{
     position: fixed;
     opacity: 0;
     pointer-events: none;
 }
 
-.checked{
-    background-color: red;
-}
+/* 
 
-/* .card-input-element{
+.card-input-element{
     display: none;
 }
 
-.card-input-element:checked + .card-input {
+.tariff:checked + .card-input {
     background-color: red;
     transform: scale(1.1);
 } */
+
+.checked{
+    background-color: rgb(223, 13, 13);
+    transform: scale(1.1);
+}

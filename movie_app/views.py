@@ -110,6 +110,7 @@ def add_to_userlist(request):
 def profile(request):
     # get customer
     customer = request.user.customer
+    user = request.user
     if request.method == "POST":
         # get sended data
         form = CustomerForm(request.POST, instance=customer)
@@ -123,6 +124,11 @@ def profile(request):
             customer.name = form.cleaned_data.get('name')
             # save changes
             customer.save()
+            # update username
+            user.username = form.cleaned_data.get('name')
+            user.save()
+            
+            
     else:
         form = CustomerForm(instance=customer)
     context = {'form':form}

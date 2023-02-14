@@ -2,6 +2,9 @@
 {% load static %}
 
 
+{% block searchbar %}
+{% endblock searchbar %}
+
 {% block content %}
 <link rel="stylesheet" href="{% static 'css/tariff_page.css' %}">
 
@@ -10,25 +13,47 @@
         {% csrf_token %}
         {% for tariff in form.tariff %}
         <label class="lab">
-            
-            <div class="tariff_card card-input">
-                <h1 class="tarif_name">{{ tariff }}</h1>
-                {% if tariff.0 == "default" %}
+            {% if request.user.customer.tariff == tariff.choice_label %}
+            <div class="tariff_card card-input checked">
+                <h1 class="tarif_name">{{ tariff.choice_label|title }}</h1>
+                {{tariff.tag}}
+                {% if tariff.choice_label|lower == "movies" %}
                 <ul class="card-list">
                     <li class="card-list-punct">Access to homepage and movies</li>
                 </ul>
                 {% endif %}
-                {% if tariff.0 == "plus" %}
+                {% if tariff.choice_label|lower == "plus" %}
                 <ul class="card-list">
                     <li class="card-list-punct">Access to homepage and series</li>
                 </ul>
                 {% endif %}
-                {% if tariff.0 == "premium" %}
+                {% if tariff.choice_label|lower == "premium" %}
                 <ul class="card-list">
                     <li class="card-list-punct">Access to all</li>
                 </ul>
                 {% endif %}
             </div>
+            {% else %}
+            <div class="tariff_card card-input">
+                <h1 class="tarif_name">{{ tariff.choice_label|title }}</h1>
+                {{tariff.tag}}
+                {% if tariff.choice_label|lower == "movies" %}
+                <ul class="card-list">
+                    <li class="card-list-punct">Access to homepage and movies</li>
+                </ul>
+                {% endif %}
+                {% if tariff.choice_label|lower == "plus" %}
+                <ul class="card-list">
+                    <li class="card-list-punct">Access to homepage and series</li>
+                </ul>
+                {% endif %}
+                {% if tariff.choice_label|lower == "premium" %}
+                <ul class="card-list">
+                    <li class="card-list-punct">Access to all</li>
+                </ul>
+                {% endif %}
+            </div>
+            {% endif %}
         </label>
         
         {% endfor %}
@@ -37,22 +62,22 @@
     
 </div>
 
+
+
 <script text="text-javascript">
     let choices = document.getElementsByClassName('tariff')
-    let cards = document.getElementsByClassName('tariff_card ')
-    console.log(cards)
-    for(let i = 0; i < choices.length; i++){
-        choices[i].addEventListener('change', () => {
-            for(let j = 0; j < choices.length; j++){
-                cards[i].classList.remove("checked")
-                if (choices[i].checked){
-                    cards[i].classList.add("checked")
-                    console.log('click')
-                    console.log(cards)
+    let con = document.getElementsByClassName('tariff_card')
+    for(let i = 0; i < choices.length; i ++){
+        choices[i].addEventListener('change', () =>{
+            for(let j = 0; j < con.length; j ++){
+                if(con[j].classList.contains('checked')){
+                    con[j].classList.remove('checked')
                 }
             }
+            console.log(i)
+            console.log(con[i])
+            con[i].classList.add('checked')
         })
-
     }
     
 </script>

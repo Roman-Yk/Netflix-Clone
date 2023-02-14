@@ -58,6 +58,7 @@
 
                 <div class="menu">
                     <ul class="menu_list search_profile">
+                        {% block searchbar %}
                         <div class="search_bar_wrapper">
                             <div class="search_bar">
                                 <input id='search' class="search_bar_input" placeholder="Search" type="text">
@@ -69,6 +70,7 @@
                                 {% endfor %}
                             </ul> 
                         </div> 
+                        {% endblock searchbar %}
                         <a href="{% url 'profile' %}" class="profile_link"><img src="{{request.user.customer.profile_pic.url}}" alt=""></a>
                     </ul>
                 </div>
