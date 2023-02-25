@@ -17,17 +17,9 @@ def index(request):
 def homepage(request):
     movies = Movie.objects.all()
     title_movie = random.choice(movies)
-    context = {'movies': movies, 'title_movie': title_movie}
+    context = {'movies': movies, 'search_res':movies[:5],'title_movie': title_movie}
     return render(request, 'movie_app/homepage.html', context)
- 
- 
-@login_required(login_url='accounts:login')
-def series_page(request):
-    #filter by series
-    series = Movie.objects.filter(movie_type = 'series')
-    context = {'movies': series, 'genres': sorted(GENRES)}
-    return render(request, 'movie_app/series.html', context)
- 
+  
  
 @login_required(login_url='accounts:login')
 def movies_page(request, genre='all'):
@@ -37,7 +29,7 @@ def movies_page(request, genre='all'):
     else:
         #filter by genre
         movies = Movie.objects.filter(genre__contains=genre, movie_type = 'movie')
-    context = {'movies': movies, 'genres': sorted(GENRES)}
+    context = {'movies': movies, 'genres': sorted(GENRES), 'search_res':movies[:5],}
     return render(request, 'movie_app/movies.html', context)
  
  
@@ -51,20 +43,51 @@ def single_filmpage(request, filmId):
     listed_films = user_list.listedmovie_set.all()
     if listed_films.filter(movie=film).exists():
         addible = False
-    context = {'film': film, 'addible': addible}
+    context = {'film': film, 'addible': addible,}
     return render(request, 'movie_app/film_page.html', context)
 
 
 @login_required(login_url='accounts:login')
-def genred_series(request, genre):
+def series_page(request, genre):
     #check which genre was choosen
     if genre == 'all':
         series = Movie.objects.filter(movie_type = 'series')
     else:
         #filter by genre
         series = Movie.objects.filter(genre__contains=genre, movie_type = 'series')
-    context = {'series': series, 'genres': sorted(GENRES)}
+    context = {'movies': series, 'genres': sorted(GENRES), 'search_res':series[:5],}
     return render(request, 'movie_app/series.html', context)
+ 
+ 
+@login_required(login_url='accounts:login')
+def searched_movies(request, genre='all'):
+    """That functions gives filtered movies by user input"""
+    # Check if filter value in session
+    # If not, and search get not none, add it there
+    if request.session['filter'] is None and request.GET.get('search') is not None:
+        filter = request.GET.get('search')
+        request.session['filter'] = filter
+    # else if filter ins session and get search is not none, assign new value to filter in session
+    elif request.session['filter'] is not None and request.GET.get('search') is not None:
+        filter = request.GET.get('search')
+        request.session['filter'] = filter
+    # If it is session, get it value
+    else:
+        filter = request.session['filter']
+
+    if genre == 'all':
+        if filter:
+            # get movies filtered by user input
+            movies = Movie.objects.filter(title__icontains = filter.lower())
+        else:
+            movies = Movie.objects.filter()
+    else:
+        if filter:
+            movies = Movie.objects.filter(title__icontains = filter.lower(), genre__contains=genre)
+        else:
+            movies = Movie.objects.filter(genre__contains=genre)
+    context = {'movies': movies, 'genres': sorted(GENRES), 'search_res':movies[:5]}
+    return render(request, 'movie_app/search_movies.html', context)
  
  
 @login_required(login_url='accounts:login')
@@ -77,7 +100,8 @@ def user_movie_list(request, genre):
     else:
         #filter by genre
         movie_list = user_list.listedmovie_set.filter(movie__genre__contains=genre)
-    context = {'list':movie_list, 'genres': sorted(GENRES)}
+    movies = [item.movie for item in movie_list]
+    context = {'movies':movies, 'genres': sorted(GENRES), 'search_res':movies[:5],}
     return render(request, 'movie_app/my_list.html', context)
 
 
@@ -102,8 +126,6 @@ def add_to_userlist(request):
         addible = True
     # return JsonResponse
     return JsonResponse({'addible': addible}, safe=False)
-
-
 
 
 @login_required(login_url='accounts:login')
@@ -131,7 +153,7 @@ def profile(request):
             
     else:
         form = CustomerForm(instance=customer)
-    context = {'form':form}
+    context = {'form':form, 'user': user}
     return render(request, 'movie_app/profile.html', context)
 
 

@@ -25,35 +25,15 @@
 </div>
 
 <div class="container_series">
-    {% for item in list %}
-    <a href="{% url 'filmpage' item.movie.id %}" class="film">
-        <img src="{{item.movie.image.url}}" alt="">
+    {% for item in movies %}
+    <a href="{% url 'filmpage' item.id %}" class="film">
+        <img src="{{item.image.url}}" alt="">
         <p>{{item.title}}</p>
     </a>
     {% endfor %}
-
-    
 </div>
 
 
-<script>
-    let searchBtn = document.querySelector('.search_btn')
-    let searchBar = document.querySelector('.search_bar_input')
-    let open = true
-    searchBtn.addEventListener('click', () =>{
-        if(open){
-            searchBar.style.transform= 'scaleX(1)'
-
-            open = false
-        }
-        else{
-            searchBar.style.transform= 'scaleX(0)'
-
-            open = true
-        }
-    })
-
-</script>
 
 {% endblock content %}
 

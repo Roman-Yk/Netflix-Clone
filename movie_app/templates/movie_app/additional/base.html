@@ -47,7 +47,7 @@
                     </div>
                     <ul class="menu_list menu_list_own">
                         <a href="{% url 'homepage' %}" class="menu_list_item">Home</a>
-                        <a href="{% url 'series_page' %}" class="menu_list_item">TV Series</a>
+                        <a href="{% url 'series_page' 'all'%}" class="menu_list_item">TV Series</a>
                         <a href="{% url 'movies_page' 'all' %}" class="menu_list_item">Movies</a>
                         <a href="{% url 'mylist' 'all' %}" class="menu_list_item">My List</a>
                     </ul>
@@ -60,16 +60,19 @@
                     <ul class="menu_list search_profile">
                         {% block searchbar %}
                         <div class="search_bar_wrapper">
-                            <div class="search_bar">
-                                <input id='search' class="search_bar_input" placeholder="Search" type="text">
+                            <form class="search_bar" action="{% url 'search' 'all' %}" method="GET">
+                                <input id='search' class="search_bar_input" placeholder="Search" type="text" name="search">
                                 <img src="{% static 'img/icons/search_icon.png' %}" class="search_btn">
                             </div>
                             <ul id="search_ul" class="search_results">
-                                {% for movie in movies%}
+                                {% for movie in search_res%}
                                     <li class="results"><a href="{% url 'filmpage' movie.id %}">{{ movie.title }}</a></li>
                                 {% endfor %}
+                                <li class="results">
+                                    <input type="submit" value="Show all">
+                                </li>
                             </ul> 
-                        </div> 
+                        </form> 
                         {% endblock searchbar %}
                         <a href="{% url 'profile' %}" class="profile_link"><img src="{{request.user.customer.profile_pic.url}}" alt=""></a>
                     </ul>
@@ -151,7 +154,9 @@
         })
 
 
+        
     </script>
+
     <script src="{% static 'js/searchbar.js' %}"></script>
 </body> 
 </html>

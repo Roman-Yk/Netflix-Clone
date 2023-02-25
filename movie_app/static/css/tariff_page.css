@@ -8,12 +8,18 @@ body{
     align-items: center;
     margin-top: 50px;
 }
+
+
+
 .plan_cont{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     gap: 20px;
 }
-
+.cads_container{
+    display: flex;
+}
 .tariff_card{
     height: 500px;
     width: 350px;

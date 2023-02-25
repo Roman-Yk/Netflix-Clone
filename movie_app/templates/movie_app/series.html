@@ -11,7 +11,7 @@
         <button class="dropbtn">Categories</button>
         <div class="dropdown-content">
             {% for genre in genres %}
-            <a href="{% url 'genred_series' genre.0 %}">{{genre.0}}</a>
+            <a href="{% url 'series_page' genre.0 %}">{{genre.0}}</a>
             {% endfor %}
         </div>
       </div>
@@ -30,23 +30,8 @@
         <img src="{{item.image.url}}" alt="">
         <p class='movie_desc'>{{item.title}}</p>
     </a>
-
-    {% endfor %}
-    {% for item in movies %}
-    <a href="{% url 'filmpage' item.id %}" class="film">
-        <img src="{{item.image.url}}" alt="">
-        <p class='movie_desc'>{{item.title}}</p>
-    </a>
-
     {% endfor %}
 
-    {% for item in movies %}
-    <a href="{% url 'filmpage' item.id %}" class="film">
-        <img src="{{item.image.url}}" alt="">
-        <p class='movie_desc'>{{item.title}}</p>
-    </a>
-
-    {% endfor %}
     
 </div>
 

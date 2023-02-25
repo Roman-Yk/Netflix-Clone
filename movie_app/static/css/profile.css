@@ -73,6 +73,11 @@ label{
     cursor: pointer;
 }
 
+.cur_tariff{
+    margin-top: 20px;
+    color: white;
+    font-size: 18px;
+}
 
 .tarif_link{
     text-decoration: none;

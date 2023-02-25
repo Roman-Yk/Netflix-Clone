@@ -11,52 +11,53 @@
 <div class="tariff_container">
     <form class="plan_cont" method='post'>
         {% csrf_token %}
-        {% for tariff in form.tariff %}
-        <label class="lab">
-            {% if request.user.customer.tariff == tariff.choice_label %}
-            <div class="tariff_card card-input checked">
-                <h1 class="tarif_name">{{ tariff.choice_label|title }}</h1>
-                {{tariff.tag}}
-                {% if tariff.choice_label|lower == "movies" %}
-                <ul class="card-list">
-                    <li class="card-list-punct">Access to homepage and movies</li>
-                </ul>
+        <div class="cads_container">
+            {% for tariff in form.tariff %}
+            <label class="lab">
+                {% if request.user.customer.tariff == tariff.choice_label %}
+                <div class="tariff_card card-input checked">
+                    <h1 class="tarif_name">{{ tariff.choice_label|title }}</h1>
+                    {{tariff.tag}}
+                    {% if tariff.choice_label|lower == "movies" %}
+                    <ul class="card-list">
+                        <li class="card-list-punct">Access to homepage and movies</li>
+                    </ul>
+                    {% endif %}
+                    {% if tariff.choice_label|lower == "plus" %}
+                    <ul class="card-list">
+                        <li class="card-list-punct">Access to homepage and series</li>
+                    </ul>
+                    {% endif %}
+                    {% if tariff.choice_label|lower == "premium" %}
+                    <ul class="card-list">
+                        <li class="card-list-punct">Access to all</li>
+                    </ul>
+                    {% endif %}
+                </div>
+                {% else %}
+                <div class="tariff_card card-input">
+                    <h1 class="tarif_name">{{ tariff.choice_label|title }}</h1>
+                    {{tariff.tag}}
+                    {% if tariff.choice_label|lower == "movies" %}
+                    <ul class="card-list">
+                        <li class="card-list-punct">Access to homepage and movies</li>
+                    </ul>
+                    {% endif %}
+                    {% if tariff.choice_label|lower == "plus" %}
+                    <ul class="card-list">
+                        <li class="card-list-punct">Access to homepage and series</li>
+                    </ul>
+                    {% endif %}
+                    {% if tariff.choice_label|lower == "premium" %}
+                    <ul class="card-list">
+                        <li class="card-list-punct">Access to all</li>
+                    </ul>
+                    {% endif %}
+                </div>
                 {% endif %}
-                {% if tariff.choice_label|lower == "plus" %}
-                <ul class="card-list">
-                    <li class="card-list-punct">Access to homepage and series</li>
-                </ul>
-                {% endif %}
-                {% if tariff.choice_label|lower == "premium" %}
-                <ul class="card-list">
-                    <li class="card-list-punct">Access to all</li>
-                </ul>
-                {% endif %}
-            </div>
-            {% else %}
-            <div class="tariff_card card-input">
-                <h1 class="tarif_name">{{ tariff.choice_label|title }}</h1>
-                {{tariff.tag}}
-                {% if tariff.choice_label|lower == "movies" %}
-                <ul class="card-list">
-                    <li class="card-list-punct">Access to homepage and movies</li>
-                </ul>
-                {% endif %}
-                {% if tariff.choice_label|lower == "plus" %}
-                <ul class="card-list">
-                    <li class="card-list-punct">Access to homepage and series</li>
-                </ul>
-                {% endif %}
-                {% if tariff.choice_label|lower == "premium" %}
-                <ul class="card-list">
-                    <li class="card-list-punct">Access to all</li>
-                </ul>
-                {% endif %}
-            </div>
-            {% endif %}
-        </label>
-        
-        {% endfor %}
+            </label>
+            {% endfor %}
+        </div>
         <input type="submit" class="choose" value="Choose">
     </form>
     
