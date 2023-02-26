@@ -60,19 +60,20 @@
                     <ul class="menu_list search_profile">
                         {% block searchbar %}
                         <div class="search_bar_wrapper">
-                            <form class="search_bar" action="{% url 'search' 'all' %}" method="GET">
+                            <form class="search_bar" {%block action%}action="{% url 'search' 'all' %}"{%endblock action%} method="GET">
                                 <input id='search' class="search_bar_input" placeholder="Search" type="text" name="search">
                                 <img src="{% static 'img/icons/search_icon.png' %}" class="search_btn">
-                            </div>
-                            <ul id="search_ul" class="search_results">
-                                {% for movie in search_res%}
-                                    <li class="results"><a href="{% url 'filmpage' movie.id %}">{{ movie.title }}</a></li>
-                                {% endfor %}
-                                <li class="results">
-                                    <input type="submit" value="Show all">
-                                </li>
-                            </ul> 
-                        </form> 
+                            
+                                <ul id="search_ul" class="search_results">
+                                    {% for movie in search_res%}
+                                        <li class="results"><a href="{% url 'filmpage' movie.id %}">{{ movie.title }}</a></li>
+                                    {% endfor %}
+                                    <li class="results">
+                                        <input type="submit" value="Show all">
+                                    </li>
+                                </ul> 
+                            </form> 
+                        </div>
                         {% endblock searchbar %}
                         <a href="{% url 'profile' %}" class="profile_link"><img src="{{request.user.customer.profile_pic.url}}" alt=""></a>
                     </ul>

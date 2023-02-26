@@ -108,3 +108,20 @@ a{
 .swiper-button-prev:hover{
     opacity: 1;
 }
+
+.add_to_mylist{
+    padding: 10px 30px;
+    background-color: rgba(70, 67, 67, 0.616);
+    border: none;
+    border-radius: 6px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
+}
+
+
+.minus{
+    margin-right: 10px;
+}

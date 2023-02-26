@@ -19,7 +19,11 @@
         <p class="movie_description">{{title_movie.description}}</p>
         <div class="buttons">
             <a class="play_btn" href="{% url 'filmpage' title_movie.id %}">&#9658 Play</a>
-            <button class="more_info_btn">&#9432 More info</button>
+            {% if addible %}
+            <button class="add_to_mylist" data-id="{{title_movie.id}}" data-action="add"><span class="plus">&#43;</span> MY LIST</button>
+            {% else %}
+                <button class="add_to_mylist" data-id="{{title_movie.id}}" data-action="remove"><span class="minus">&#8722;</span>REMOVE FROM MY LIST</button>
+            {% endif %}
         </div>
     </div>
     <div class="movies">
@@ -55,12 +59,12 @@
   </div>
 
   <div class="action">
-    <h1 class="white">Action</h1>
+    <h1 class="white">Fiction</h1>
     <div class="swiper image-slider">
       <div class="swiper-wrapper swiper_cont">
-        {% for movie in movies %}
-          <a href="{% url 'filmpage' movie.id %}" class="swiper-slide image-silder__img" filter>
-            <img src="{{movie.homepage_slider_image.url}}" alt="">
+        {% for fiction in fictions %}
+          <a href="{% url 'filmpage' fiction.id %}" class="swiper-slide image-silder__img" filter>
+            <img src="{{fiction.homepage_slider_image.url}}" alt="">
           </a>
         {% endfor %}
       </div>
@@ -70,12 +74,12 @@
   </div>
 
   <div class="comedies">
-    <h1 class="white">Comedies</h1>
+    <h1 class="white">Fantasies</h1>
     <div class="swiper image-slider">
       <div class="swiper-wrapper swiper_cont">
-        {% for movie in movies %}
-          <a href="{% url 'filmpage' movie.id %}" class="swiper-slide image-silder__img" filter>
-            <img src="{{movie.homepage_slider_image.url}}" alt="">
+        {% for fantasy in fantasies %}
+          <a href="{% url 'filmpage' fantasy.id %}" class="swiper-slide image-silder__img" filter>
+            <img src="{{fantasy.homepage_slider_image.url}}" alt="">
           </a>
         {% endfor %}
       </div>
@@ -88,9 +92,9 @@
     <h1 class="white">Thrillers</h1>
     <div class="swiper image-slider">
       <div class="swiper-wrapper swiper_cont">
-        {% for movie in movies %}
-          <a href="{% url 'filmpage' movie.id %}" class="swiper-slide image-silder__img" filter>
-            <img src="{{movie.homepage_slider_image.url}}" alt="">
+        {% for thriller in thrillers %}
+          <a href="{% url 'filmpage' thriller.id %}" class="swiper-slide image-silder__img" filter>
+            <img src="{{thriller.homepage_slider_image.url}}" alt="">
           </a>
         {% endfor %}
         </div>
@@ -140,6 +144,30 @@
     }
 
   });
+
+  var addToMyListBtns = document.getElementsByClassName('add_to_mylist')
+  for(let i = 0; i< addToMyListBtns.length; i++){
+      addToMyListBtns[i].addEventListener("click", function(){
+          let movieId = this.dataset.id
+          let action = this.dataset.action
+          let url = '/add_to_userlist/'
+          fetch(url, {
+              method: 'POST',
+              headers:{
+                  'Content-Type':'application/json',
+                  'X-CSRFToken': csrftoken,
+              },
+              body:JSON.stringify({'movieId':movieId, 'action':action})
+          })
+          .then((response)=>{
+              return response.json()
+          })
+          .then((data) =>{
+              window.location.reload()
+             
+          })
+      })
+  }
 </script>
 {% endblock content%}
 

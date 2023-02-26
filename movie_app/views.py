@@ -15,9 +15,25 @@ def index(request):
 
 @login_required(login_url='accounts:login')
 def homepage(request):
+    addible = True
     movies = Movie.objects.all()
     title_movie = random.choice(movies)
-    context = {'movies': movies, 'search_res':movies[:5],'title_movie': title_movie}
+    user_list, created = UserList.objects.get_or_create(customer=request.user.customer)
+    listed_films = user_list.listedmovie_set.all()
+    if listed_films.filter(movie=title_movie).exists():
+        addible = False
+        
+    #movies categories
+    thrillers = Movie.objects.filter(genre__contains='thriller')
+    random.shuffle(list(thrillers))
+    fictions = Movie.objects.filter(genre__contains='fiction')
+    random.shuffle(list(fictions))
+    historicals = Movie.objects.filter(genre='historical')
+    random.shuffle(list(historicals))
+    fantasies = Movie.objects.filter(genre='fantasy')
+    random.shuffle(list(fantasies))
+    context = {'movies': movies, 'search_res':movies[:5],'title_movie': title_movie, 'addible': addible, 'thrillers':thrillers[:10],
+               'fictions':fictions[:10], 'historicals': historicals[:10], 'fantasies':fantasies[:10]}
     return render(request, 'movie_app/homepage.html', context)
   
  
@@ -60,6 +76,39 @@ def series_page(request, genre):
  
  
 @login_required(login_url='accounts:login')
+def search_series(request, genre='all'):
+    """That functions gives filtered movies by user input"""
+    # Check if filter value in session
+    # If not, and search get not none, add it there
+    if 'series_filter' not in request.session and request.GET.get('search') is not None:
+        filter = request.GET.get('search')
+        request.session['series_filter'] = filter
+    # else if filter ins session and get search is not none, assign new value to filter in session
+    elif request.session['series_filter'] is not None and request.GET.get('search') is not None:
+        filter = request.GET.get('search')
+        request.session['series_filter'] = filter
+    # If it is session, get value
+    else:
+        filter = request.session['series_filter']
+
+    if genre == 'all':
+        if filter:
+            # get movies filtered by user input
+            movies = Movie.objects.filter(title__icontains = filter.lower(), movie_type = 'series')
+        else:
+            movies = Movie.objects.filter(movie_type = 'series')
+    else:
+        if filter:
+             # get movies filtered by user input and genre
+            movies = Movie.objects.filter(title__icontains = filter.lower(), genre__contains=genre, movie_type = 'series')
+        else:
+            movies = Movie.objects.filter(genre__contains=genre, movie_type = 'series')
+            
+    context = {'movies': movies, 'genres': sorted(GENRES), 'search_res':movies[:5],}
+    return render(request, 'movie_app/search_series.html', context)
+ 
+ 
+@login_required(login_url='accounts:login')
 def searched_movies(request, genre='all'):
     """That functions gives filtered movies by user input"""
     # Check if filter value in session
@@ -74,18 +123,20 @@ def searched_movies(request, genre='all'):
     # If it is session, get it value
     else:
         filter = request.session['filter']
-
+        
     if genre == 'all':
         if filter:
             # get movies filtered by user input
-            movies = Movie.objects.filter(title__icontains = filter.lower())
+            movies = Movie.objects.filter(title__icontains = filter.lower(), movie_type = 'movie')
         else:
-            movies = Movie.objects.filter()
+            movies = Movie.objects.filter(movie_type = 'movie')
     else:
+         # get movies filtered by user input and genre
         if filter:
-            movies = Movie.objects.filter(title__icontains = filter.lower(), genre__contains=genre)
+            movies = Movie.objects.filter(title__icontains = filter.lower(), genre__contains=genre, movie_type = 'movie')
         else:
-            movies = Movie.objects.filter(genre__contains=genre)
+            movies = Movie.objects.filter(genre__contains=genre, movie_type = 'movie')
+    
     context = {'movies': movies, 'genres': sorted(GENRES), 'search_res':movies[:5]}
     return render(request, 'movie_app/search_movies.html', context)
  

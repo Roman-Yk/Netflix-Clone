@@ -6,6 +6,7 @@ urlpatterns = [
     path('homepage/', views.homepage, name='homepage'),
     path('filmpage/<int:filmId>/', views.single_filmpage, name='filmpage'),
     path('series/<str:genre>/', views.series_page, name='series_page'),
+    path("search_series/<str:genre>/", views.search_series, name="search_series"),
     path('movies/<str:genre>/', views.movies_page, name='movies_page'),
     path("movies_search/<str:genre>/", views.searched_movies, name="search"),
     path('mylist/<str:genre>/', views.user_movie_list, name='mylist'),
